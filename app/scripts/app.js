@@ -15,6 +15,7 @@
             })
             .state('album', {
                 url: '/album',
+                controller: 'AlbumCtrl as album',
                 templateUrl: '/templates/album.html'
             })
             .state('collection', {
@@ -22,6 +23,7 @@
                 controller: 'CollectionCtrl as collection',
                 templateUrl: 'templates/collection.html'
             });
+        
             
     }
     
