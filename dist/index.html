@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html ng-app="blocJams">
+<!--Shared html of blocjams angular app. This is the global file. Templates are loaded in based on state-->
+<html ng-app="blocJams">           <!--ng-app, (directive that tells Angular where to bootstrap the application), links blocJams module to the application-->
  <head lang="en">
     <meta charset="UTF-8">
     <title>Bloc Jams Angular</title>
@@ -15,22 +16,25 @@
   </head>
  <body>
     <nav class="navbar"> <!--navigation-->
-        <a ui-sref="landing" class="logo">
+        <a ui-sref="landing" class="logo">                                          <!--ui-sref in this case triggers a state change to the landing state-->
             <img src="assets/images/bloc_jams_logo.png" alt="bloc jams logo">
         </a>
         <div class="links-container">
-            <a ui-sref="collection" class="navbar-link">collection</a>
+            <a ui-sref="collection" class="navbar-link">collection</a>            <!--ui-sref in this case triggers a state change to the collection state-->
         </div>    
     </nav>
     
-    <ui-view></ui-view>
+    <ui-view></ui-view>         <!--The directive (with the help of external module UI-router) tells angular where to place the templates when requested-->
     
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-    <script src="/scripts/app.js"></script>
-    <script src="/scripts/services/Fixtures.js"></script>
-    <script src="/scripts/controllers/LandingCtrl.js"></script>
-    <script src="/scripts/controllers/CollectionCtrl.js"></script>
-    <script src="/scripts/controllers/AlbumCtrl.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>                        <!--this script includes angular-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>    <!--includes ui-router module-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.10/buzz.min.js"></script>                              <!--includes buzz lib for music-->
+    <script src="/scripts/app.js"></script>                                                                             <!--includes app.js script-->
+    <script src="/scripts/services/Fixtures.js"></script>                                                     <!--includes Fixtures service script-->
+    <script src="/scripts/services/SongPlayer.js"></script>                                                   <!--includes SongPlayer service script-->
+    <script src="/scripts/controllers/LandingCtrl.js"></script>                                               <!--includes landing controller script-->
+    <script src="/scripts/controllers/CollectionCtrl.js"></script>                                            <!--includes collection controller script-->
+    <script src="/scripts/controllers/AlbumCtrl.js"></script>                                                 <!--includes album controller script-->
+     
  </body>
 </html>

@@ -1,9 +1,9 @@
 (function() {
     
-    function Fixtures() {
-        var Fixtures = {};
-        
-        var albumPicasso = {
+    function Fixtures() {                                                                
+        var Fixtures = {};                                                              
+                                                                                        
+        var albumPicasso = {                                                            
             title: 'The Colors',
             artist: 'Pablo Picasso',
             label: 'Cubism',
@@ -50,7 +50,24 @@
     
     angular
         .module('blocJams')
-        .factory('Fixtures', Fixtures);
+        .factory('Fixtures', Fixtures);  
+})();       
     
     
-})();
+//Controllers have a specific role in an application and should note 
+//share code or state between eachother. Instead, angular has services
+//for that purpose. Angular services are objects that can share data and //behavior across several components (controllers, directives, filters, and
+//even other services). To use a service it is injected as a dependency for 
+//the component that depends on the service.
+
+//In this case the service is factory recipe, which injects a function. 
+//A service is registered in the same way a controller is, by calling a function
+//on the applications module. 
+
+//Within the Fixtures function (callback to factory recipe),
+//a variable Fixtures is declared (set to empty object). 
+//The factory will return this object and make its properties
+//and methods available to other parts of angular application
+
+
+

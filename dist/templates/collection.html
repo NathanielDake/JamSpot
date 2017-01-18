@@ -1,11 +1,13 @@
- <section class="album-covers container clearfix">
+<!--collection template, can be shown in index.html with the ui-view directive and UI-router module-->  
+
+<section class="album-covers container clearfix">
      <div class="collection-album-container column fourth" ng-repeat="album in collection.albums track by $index">
          <img src="{{ album.albumArtUrl }}">
          <div class="collection-album-info caption">
              <p>
                  <a class="album-name" ui-sref="album">{{ album.title }}</a>
                  <br/>
-                 <a ui-sref="album">{{ album.artist }}</a>
+                 <a ui-sref="album">{{ album.artist }}</a>  <!--ui-sref in this case triggers a state change to the album state-->
                  <br/>
                   {{ album.songs.length }} songs
                  <br/>
