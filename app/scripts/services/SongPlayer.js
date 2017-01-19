@@ -31,7 +31,6 @@
         */
         var currentBuzzObject = null;
         
-        
         /**
         * @function setSong
         * @desc Stops currently playing song and loads new audio file as currentBuzzObject
@@ -60,6 +59,17 @@
             currentBuzzObject.play();                                   
             song.playing = true;
         }; 
+        
+        /**
+        * @function stopSong
+        * @desc stops the song (currentBuzzObject) and sets the song.playing to null
+        * @param {object} song
+        */
+        var stopSong = function(song) {
+            currentBuzzObject.stop();
+            song.playing = null;
+        
+        };
         
         
         /**
@@ -110,13 +120,32 @@
             currentSongIndex--;
             
             if (currentSongIndex < 0) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong(SongPlayer.currentSong);
             } else {
                 var song = currentAlbum.songs[currentSongIndex];
                 setSong(song);
                 playSong(song);
             }
+        };
+        
+        
+        /**
+        * @function SongPlayer.next
+        * @desc function for the next button on the player bar. Determines current song index,
+        * increments by one, and then plays the song at that index (or stops if greater than album length)
+        */
+        SongPlayer.next = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+            currentSongIndex++;
+            
+            if (currentSongIndex > currentAlbum.songs.length) {
+                stopSong(SongPlayer.currentSong);
+            } else {
+                var song = currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
+            }
+            
         };
         
         /**The service (factory in this case) returns this object, making its 
