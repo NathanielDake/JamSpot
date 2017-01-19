@@ -1,14 +1,29 @@
 (function() {
-    function SongPlayer() {
+    function SongPlayer(Fixtures) {
         
         //SongPlayer variable is created and set to an empty object
         var SongPlayer = {};                                        
         
         /**
-        * @desc song object from songs list in album
+        * @desc album object using the Fixtures.getAlbum() method, which returns album picasso
+        * @type {object}
+        */
+        var currentAlbum = Fixtures.getAlbum();
+        
+        /**
+        * @function getSongIndex
+        * @desc determines the index of the current song in the current album 
+        * @param {object} song
+        */
+        var getSongIndex = function(song) {
+            return currentAlbum.songs.indexOf(song);
+        };
+        
+        /**
+        * @desc song object from songs list in album. Public attribute so that it can be used in the player bar
         * @type {object} 
         */
-        var currentSong = null;
+        SongPlayer.currentSong = null;
         
         /**
         * @desc Buzz object audio file
@@ -25,7 +40,7 @@
         var setSong = function(song) {
             if (currentBuzzObject){                                  
                 currentBuzzObject.stop();                            
-                currentSong.playing = null;                                                                                     
+                SongPlayer.currentSong.playing = null;                                                                                     
                }                                                        
            
             currentBuzzObject = new buzz.sound(song.audioUrl, {     
@@ -33,7 +48,7 @@
                 preload: true                                           
             });                     
             
-            currentSong = song;
+            SongPlayer.currentSong = song;
         };
         
         /**
@@ -61,11 +76,12 @@
         * @param {object} song
         */
         SongPlayer.play = function(song) {                              
-           if (currentSong !== song){
+            song = song || SongPlayer.currentSong;
+            if (SongPlayer.currentSong !== song){
                setSong(song);
                playSong(song);                                        
                                                                         
-            } else if (currentSong === song) {      
+            } else if (SongPlayer.currentSong === song) {      
                 if (currentBuzzObject.isPaused()) {
                     currentBuzzObject.play();
                 }
@@ -78,9 +94,30 @@
         * @param {object} song
         */
         SongPlayer.pause = function(song) {
+            song = song || SongPlayer.currentSong;
             currentBuzzObject.pause();
             song.playing = false;
         }
+        
+        
+        /**
+        * @function SongPlayer.previous
+        * @desc function for the previous button on the player bar. Determines current song index,
+        * decrements by one, and then plays the song at that index (or stops if less than zero)
+        */
+        SongPlayer.previous = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+            currentSongIndex--;
+            
+            if (currentSongIndex < 0) {
+                currentBuzzObject.stop();
+                SongPlayer.currentSong.playing = null;
+            } else {
+                var song = currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
+            }
+        };
         
         /**The service (factory in this case) returns this object, making its 
         *properties and methods public to the rest of the application 
@@ -94,13 +131,14 @@
     //be played from the album view, so it is injected in the AlbumCtrl
     angular
         .module('blocJams')
-        .factory('SongPlayer', SongPlayer);                         
+        .factory('SongPlayer', ['Fixtures',SongPlayer]);                         
 })();
 
 
 /**
 *the SongPlayer service contains:
-* 2 private attributes: currentSong and currentBuzzObject
+* 1 private attribute: currentBuzzObject
+* 1 public attribute: SongPlayer.currentSong
 * 1 private function: setSong
 * and two public methods: SongPlayer.play and SongPlayer.pause
 */
