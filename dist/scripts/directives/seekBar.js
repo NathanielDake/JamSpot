@@ -58,7 +58,11 @@
                 * @desc returns the width of the seek bar fill element based on calculated percent
                 */
                 scope.fillStyle = function() {
-                  return {width: percentString()};  
+                    return {width: percentString()};  
+                };
+                
+                scope.thumbStyle = function() {
+                    return {left: percentString()};
                 };
                 
                 /**
@@ -152,4 +156,12 @@
 *because a directive knows which attributes and methods are on its scope 
 *and can be used in the view. However, could not call percentString() in the 
 *view because it is not on the directive's scope object-->
+* Note: seekBar callback function returns and object
+* What happens when <div class="seek-bar" ng-click="onClickSeekBar($event)"> is clicked?
+* That div is tied to ng-click, so when a user clicks on that div the 
+* onClickSeekBar function will exectute. That function is linked to
+* the seek bars scope (that divs scope), ie not the fill or thumb div scopes
+* The function calls calculatePercent method, passing in the seekBar element(song
+* or volume depending) and that seekBar refers to the outmost (root)
+* dive on the seek_bar template!!!!
 */
