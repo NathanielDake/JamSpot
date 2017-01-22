@@ -25,7 +25,7 @@ it must be made public as currentSong, else it will not be in the proper $scope-
          <h2 class="artist-song-mobile"></h2>
          <h3 class="artist-name" ng-show="playerBar.songPlayer.currentSong !== null">{{playerBar.albumData.artist}}</h3>
          <div class="seek-control">
-             <seek-bar></seek-bar>
+             <seek-bar value="{{playerBar.songPlayer.currentTime}}" max="{{ playerBar.songPlayer.currentSong.duration}}" on-change="playerBar.songPlayer.setCurrentTime(value)"></seek-bar>
              <div class="current-time"></div>
              <div class="total-time">{{playerBar.songPlayer.currentSong.duration}}</div>
          </div>

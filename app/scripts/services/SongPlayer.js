@@ -1,5 +1,5 @@
 (function() {
-    function SongPlayer(Fixtures) {
+    function SongPlayer($rootScope, Fixtures) {
         
         //SongPlayer variable is created and set to an empty object
         var SongPlayer = {};                                        
@@ -26,6 +26,12 @@
         SongPlayer.currentSong = null;
         
         /**
+        * @desc Current playback time (in seconds) of currently playing song
+        * @type {Number}
+        */
+        SongPlayer.currentTime = null;
+        
+        /**
         * @desc Buzz object audio file
         * @type {object}
         */
@@ -46,6 +52,15 @@
                formats: ['mp3'],                                         
                 preload: true                                           
             });                     
+            
+            /**
+            The bind() method adds an event listener to the Buzz sound object – in this case, we listen for a timeupdate event. When the song playback time updates, we execute a callback function. This function sets the value of SongPlayer.currentTime to the current playback time of the current Buzz object using another one of the Buzz library methods: getTime(), which gets the current playback position in seconds. Using  $apply, we apply the time update change to the $rootScope.
+            */
+            currentBuzzObject.bind('timeupdate', function() {
+                $rootScope.$apply(function() {
+                    SongPlayer.currentTime = currentBuzzObject.getTime();    
+                });    
+            });
             
             SongPlayer.currentSong = song;
         };
@@ -148,6 +163,17 @@
             
         };
         
+        /**
+        * @function SongPlayer.setCurrentTime
+        * @desc Set current time (in seconds) of currently playing song
+        * @param {Number} time
+        */
+        SongPlayer.setCurrentTime = function(time) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setTime(time);
+            }    
+        };
+        
         /**The service (factory in this case) returns this object, making its 
         *properties and methods public to the rest of the application 
         */
@@ -160,7 +186,7 @@
     //be played from the album view, so it is injected in the AlbumCtrl
     angular
         .module('blocJams')
-        .factory('SongPlayer', ['Fixtures',SongPlayer]);                         
+        .factory('SongPlayer', ['$rootScope', 'Fixtures', SongPlayer]);                         
 })();
 
 
