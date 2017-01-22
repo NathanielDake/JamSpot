@@ -115,6 +115,8 @@
                                                                    
                 };
                 
+                /**function designed to notify on-change attribute that scope.value has changed. In this case value: newValue, where newValue is the new scope.value from the seekbar 
+                */
                 var notifyOnChange = function(newValue) {
                     if (typeof scope.onChange === 'function') {
                         scope.onChange({value: newValue});
