@@ -189,4 +189,7 @@
 * The function calls calculatePercent method, passing in the seekBar element(song
 * or volume depending) and that seekBar refers to the outmost (root)
 * dive on the seek_bar template!!!!
+*We want Angular to treat the on-change attribute differently than the value or max attributes. We don't want on-change to act like a number, string, or static object. Instead, we want the directive to evaluate the on-change expression and execute it.
+
+To make sure the directive evaluates the attribute, we'll attach it to the directive's scope, rather than the attributes object
 */

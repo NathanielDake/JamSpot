@@ -35,6 +35,18 @@
         * @desc Buzz object audio file
         * @type {object}
         */
+        
+        SongPlayer.max = 100;
+        
+        SongPlayer.volume = null;
+        
+        SongPlayer.setVolume = function(volume) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setVolume(volume);
+                SongPlayer.volume = volume;
+            } 
+        }
+        
         var currentBuzzObject = null;
         
         /**
@@ -61,6 +73,14 @@
                     SongPlayer.currentTime = currentBuzzObject.getTime();    
                 });    
             });
+            
+            currentBuzzObject.bind('timeupdate', function() {
+                $rootScope.$apply(function() {
+                    SongPlayer.currentTime = currentBuzzObject.getTime();    
+                });    
+            });
+            
+            
             
             SongPlayer.currentSong = song;
         };
@@ -111,7 +131,7 @@
                     currentBuzzObject.play();
                 }
             }
-        };
+        }
         
         /**
         * @function SongPlayer.pause
@@ -197,3 +217,13 @@
 * 1 private function: setSong
 * and two public methods: SongPlayer.play and SongPlayer.pause
 */
+
+
+/**
+notifyOnChange documentation
+
+We test to make sure that scope.onChange is a function. If a future developer fails to pass a function to the on-change attribute in the HTML, the next line will not be reached, and no error will be thrown.
+We pass a full function call to the on-change attribute in the HTML –  scope.onChange() calls the function in the attribute.
+The function we pass in the HTML has an argument, value, which isn't defined in the view (remember that it's not the same as scope.value). Using built-in Angular functionality, we specify the value of this argument using hash syntax. Effectively, we're telling Angular to insert the local newValue variable as the  value argument we pass into the SongPlayer.setCurrentTime() function called in the view.
+*/
+
