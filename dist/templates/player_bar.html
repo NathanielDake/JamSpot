@@ -31,7 +31,10 @@ it must be made public as currentSong, else it will not be in the proper $scope-
          </div>
      </div>
      <div class="control-group volume">
-         <span class="icon ion-volume-high"></span>
+         <a class="volume-on-mute">
+             <span class="icon ion-volume-high" ng-show="!playerBar.songPlayer.muted" ng-click="playerBar.songPlayer.mute()"></span>
+             <span class="icon ion-android-volume-off" ng-show="playerBar.songPlayer.muted" ng-click="playerBar.songPlayer.unMute()"></span>
+         </a>
          <seek-bar value ="{{ playerBar.songPlayer.volume }}" max="{{ playerBar.songPlayer.max }}" on-change="playerBar.songPlayer.setVolume(value)"></seek-bar>
      </div>
   </div>

@@ -31,14 +31,27 @@
         */
         SongPlayer.currentTime = null;
         
-        /**
-        * @desc Buzz object audio file
-        * @type {object}
-        */
-        
         SongPlayer.max = 100;
         
         SongPlayer.volume = null;
+        
+        SongPlayer.muted = null;
+        
+        SongPlayer.mute = function () {
+            if (currentBuzzObject) {
+                currentBuzzObject.setVolume(0);
+                SongPlayer.volume = 0;
+                SongPlayer.muted = true;
+            }
+        };
+        
+        SongPlayer.unMute = function() {
+            if (currentBuzzObject) {
+                currentBuzzObject.setVolume(30);
+                SongPlayer.volume = 30;
+                SongPlayer.muted = null; 
+            }
+        };
         
         SongPlayer.setVolume = function(volume) {
             if (currentBuzzObject) {
@@ -47,6 +60,10 @@
             } 
         }
         
+        /**
+        * @desc Buzz object audio file
+        * @type {object}
+        */
         var currentBuzzObject = null;
         
         /**
@@ -72,15 +89,7 @@
                 $rootScope.$apply(function() {
                     SongPlayer.currentTime = currentBuzzObject.getTime();    
                 });    
-            });
-            
-            currentBuzzObject.bind('timeupdate', function() {
-                $rootScope.$apply(function() {
-                    SongPlayer.currentTime = currentBuzzObject.getTime();    
-                });    
-            });
-            
-            
+            })
             
             SongPlayer.currentSong = song;
         };
@@ -124,11 +133,17 @@
             song = song || SongPlayer.currentSong;
             if (SongPlayer.currentSong !== song){
                setSong(song);
-               playSong(song);                                        
+               playSong(song);
+                if (SongPlayer.muted === true) {
+                    SongPlayer.mute();
+                }
                                                                         
             } else if (SongPlayer.currentSong === song) {      
                 if (currentBuzzObject.isPaused()) {
                     currentBuzzObject.play();
+                    if (SongPlayer.muted === true) {
+                    SongPlayer.mute();
+                }
                 }
             }
         }
