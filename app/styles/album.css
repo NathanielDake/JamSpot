@@ -45,7 +45,7 @@
 }
 
 .song-item-title {
-    width: 85%
+    width: 80%
 }
 
 .song-item-duration {
@@ -72,6 +72,14 @@
 .album-song-button span {
     line-height: 28px;
 }
+
+.star-icon:hover {
+    cursor: pointer;
+}
+.song-star-rating {
+    width: 2%
+}
+
 @media (max-width: 640px) and (min-width: 320px) {
     .album-view-details {
         text-align: center;

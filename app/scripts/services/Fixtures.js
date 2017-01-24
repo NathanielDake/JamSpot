@@ -9,6 +9,8 @@
             label: 'Cubism',
             year: '1881',
             albumArtUrl: '/assets/images/album_covers/01.png',
+            stars: [1,2,3,4,5],
+            rating: null,
             songs: [
                 {title: 'Blue', duration: '161.71', audioUrl: 'assets/music/blue'},
                 {title: 'Green', duration: '103.96', audioUrl: 'assets/music/green'},
@@ -24,6 +26,8 @@
              label: 'EM',
              year: '1909',
              albumArtUrl: '/assets/images/album_covers/20.png',
+             stars: [1,2,3,4,5],
+             rating: null,
              songs: [
                  { title: 'Hello, Operator?', duration: '1:01' },
                  { title: 'Ring, ring, ring', duration: '5:01' },

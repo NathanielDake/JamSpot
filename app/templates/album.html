@@ -19,6 +19,13 @@
                 <a class="album-song-button" ng-show="song.playing" ng-click="album.songPlayer.pause(song)"><span class="ion-pause"></span></a>
              </td>
              <td class="song-item-title">{{song.title}}</td>
+             <td class="song-star-rating" ng-repeat="star in album.albumData.stars">
+                 <span class="star-icon ion-ios-star-outline" ng-mouseover="{{song.rating = $index + 1}}" ng-mouseleave="{{song.rating = -1}}" ng-show="{{$index > song.rating}}"></span>
+                 <span class="star-icon ion-ios-star" ng-mouseover="" ng-mouseleave="" ng-show="{{song.rating > $index}}"></span>
+              
+             
+             
+             </td>
              <td class="song-item-duration">{{song.duration | timecode}}</td>
          </tr>
      </table>
