@@ -18,7 +18,7 @@
         var getSongIndex = function(song) {
             return currentAlbum.songs.indexOf(song);
         };
-        
+
         /**
         * @desc song object from songs list in album. Public attribute so that it can be used in the player bar
         * @type {object} 
